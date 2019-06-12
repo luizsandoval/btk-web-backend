@@ -4,9 +4,9 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -w",
     "dev": "ts-node ./lib/config/server.ts",
-    "start": "nodemon ./dist/server.js",
+    "start": "nodemon ./dist/config/server.js",
     "prod": "npm run build && npm run start"
   },
   "dependencies": {

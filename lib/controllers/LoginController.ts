@@ -1,20 +1,14 @@
-import * as mongoose from 'mongoose';
-import { UserSchema } from '../models/user';
 import { Request, Response } from 'express';
 
-const User = mongoose.model('User', UserSchema);
-
+import { LoginService } from '../services/login.service';
 export class LoginController {
+    private readonly _loginService = new LoginService();
     public login(req: Request, res: Response) {
-        User.find(
-            { username: req.params.username, password: req.params.password },
-            (err, user) => {
-                if(err) {
-                    res.send(err);
-                }
-
-                res.json(user);
-            }
-        );
+        this._loginService
+            .login(req.body.email, req.body.password)
+            .then(r => {
+                res.status(r.status).json(r.body);
+            })
+            .catch(err => res.send(err));
     }
 }
